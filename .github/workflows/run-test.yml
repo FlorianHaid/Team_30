@@ -1,9 +1,6 @@
 name: Run Tests
 
-on: 
-  pull_request:
-    branches: 
-    - develop
+on: pull_request
 
 jobs:
   run-tests:
@@ -11,6 +8,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+
+    - name: Access MAPS_API_KEY
+      env:
+        MAPS_API_KEY: ${{ secrets.APOD_API_KEY }}
+      run: echo MAPS_API_KEY=\"$MAPS_API_KEY\" > ./local.properties
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew

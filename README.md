@@ -20,14 +20,15 @@ Among its main features, we should implement:
 21 April 2021 - Sprint 1
   
 28 April 2021 - Sprint 2\
-05 May 2021   - Sprint 2 (1 Release, 23:59)
+05 May 2021   - Sprint 2  
+06 May 2021 (1 Release, 23:59)
 
 12 May 2021   - Sprint 3\
 19 May 2021   - Sprint 3
 
 26 May 2021   - Sprint 4\
-02 May 2021   - Sprint 4\
-09 May 2021   - Sprint 4 (2 Release, 23:59)
+02 June 2021   - Sprint 4\
+09 June 2021   - Sprint 4 (2 Release, 23:59)
   
 Link to Discord: https://discord.com/invite/sW262YSJkr  
 
@@ -39,7 +40,6 @@ Link to Discord: https://discord.com/invite/sW262YSJkr
 | **Scrum Master**     | Florian Haid          | 
 | **Senior Developer** | Johannes Erlacher     |
 | **Senior Developer** | Harald Martini        |
-| **Developer**        | Andreas Krüger        |
 | **Developer**        | Bohdan Lailo          |
 | **Developer**        | Olha Pavlenko         |
 | **Developer**        | Sabine Pils           |
@@ -50,7 +50,7 @@ Link to Discord: https://discord.com/invite/sW262YSJkr
 ### Git workflow
 1. Fork the repository.
 2. Set up the remote upstream `git remote add upstream https://github.com/sw21-tug/Team_30.git`
-3. Always pull from the upstream before you start with a new branch `git pull upstream main`
+3. Always pull from the upstream before you start with a new branch `git pull upstream develop`
 4. Checkout your current feature branch on the forked repository `git checkout -b SR-XXX`
 5. Commit your changes and stick to the commiting convention `git commit -m "SR-XXX <short description>"`
 
@@ -60,6 +60,22 @@ Link to Discord: https://discord.com/invite/sW262YSJkr
 
 
 ## Implemented features
-| Ticket #     | Feature name| 
-| :---         |    :----:   |
-| SR-000       |    Feature  |
+| Ticket #    |              Feature name             | 
+| :---        |    :-----------------------------:    |
+| SR-014      |            Initial app setup          |
+| SR-007      |   Location usage confirmation pop-up  |
+| SR-009      |    Main view: List of routes          |
+| SR-015      |           Button navigation           |
+| SR-010      |           Route description           |
+| SR-020      |          Generating Demo Data         |
+| SR-022      |           City Map button             |
+| SR-024      |      Location usage allowed (Map)     |
+| SR-013      |      Static map view of the route     |
+| SR-013-A    |           Static image repo           |
+| SR-011      |      “More” button (App Settings)     |
+| SR-016      |         App Settings overview         |
+| SR-025      |            Create an Icon             |
+| SR-026      |  Create Design Templates for the App  |
+| SR-027      |         Improve Test Framework        |
+| SR-018      | App Settings functionalities: Language (DE/EN/RUS) |
+| SR-019      | App Settings functionalities: Dark mode (on/off) |
