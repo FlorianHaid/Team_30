@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Switch
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.Fragment
@@ -43,6 +44,7 @@ class SettingsFragment : Fragment() {
         if (sharedPreference != null)
             DMSwitch.isChecked = sharedPreference.getBoolean("DMSwitchState", false)
 
+
         val darkModeSwitch = view.findViewById(R.id.switch_dark_mode) as Switch
         darkModeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             var editor = sharedPreference?.edit()
@@ -60,13 +62,26 @@ class SettingsFragment : Fragment() {
                 recreate(requireActivity() as Activity)
             }
         }
+
+        val distanceUnitSwitch = view.findViewById(R.id.switch_units) as Switch
+        if (sharedPreference != null)
+            distanceUnitSwitch.isChecked = sharedPreference.getBoolean("MilesEnabled", false)
+        distanceUnitSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            var editor = sharedPreference?.edit()
+
+            editor?.putBoolean("MilesEnabled", isChecked)
+
+            editor?.commit()
+        }
     }
 
     private fun languageDialog() {
         val currentIndex = viewModel.getIndexForLocale(Language.forCode(LocaleHelper.getLocale(requireContext()).language))
 
         val builder = AlertDialog.Builder(ContextThemeWrapper(requireContext(), R.style.AlertDialogCustom))
-        builder.setTitle(getString(R.string.select_a_language))
+        val titleView: View = this.layoutInflater.inflate(R.layout.alert_title, null)
+        titleView.findViewById<TextView>(R.id.title_text).text = resources.getString(R.string.select_a_language)
+        builder.setCustomTitle(titleView)
         builder.setSingleChoiceItems(viewModel.getLanguages(), currentIndex) { dialog, i ->
             val language = viewModel.getLanguages()[i].toLowerCase(Locale.ROOT)
             (activity as LocaleAwareCompatActivity).updateLocale(Locale(language))
@@ -85,3 +100,4 @@ class SettingsFragment : Fragment() {
         languageButton.text = Language.forCode(LocaleHelper.getLocale(requireContext()).language).code
     }
 }
+
