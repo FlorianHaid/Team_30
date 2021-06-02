@@ -1,5 +1,6 @@
 package at.team30.setroute
 
+import android.Manifest
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import androidx.test.espresso.action.ViewActions.click
@@ -9,9 +10,11 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
+import androidx.test.rule.GrantPermissionRule
 import at.team30.setroute.infrastructure.DependencyInjection
 import at.team30.setroute.infrastructure.IRoutesRepository
 import at.team30.setroute.ui.MainActivity
+import at.team30.setroute.ui.settings.SettingsFragment
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -29,6 +32,9 @@ class MainActivityTest {
 
     @get:Rule(order = 1)
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @get:Rule(order = 2)
+    val runtimePermissionRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION)
 
     @Inject
     lateinit var routesRepository: IRoutesRepository
