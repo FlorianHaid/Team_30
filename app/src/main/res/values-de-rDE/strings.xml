@@ -9,4 +9,43 @@
     <string name="map">Karte</string>
     <string name="unit_km">km</string>
     <string name="unit_min">min</string>
+    <string name="sort">Sortieren</string>
+    <string name="filter" >Filtern</string>
+    <string name="sort_order">Sortierung:</string>
+    <string name="apply">Anwenden</string>
+    <string name="filter_options">Filteroptionen:</string>
+    <string name="ascending">Aufsteigend</string>
+    <string name="descending">Absteigend</string>
+    <!-- Sorting options fields + identifier for mapping -->
+    <string-array name="sort_options">
+        <item>Name</item>
+        <item>Dauer</item>
+        <item>Distanz</item>
+    </string-array>
+    <string-array name="sort_options_identifier" translatable="false">
+        <item>title</item>
+        <item>duration</item>
+        <item>distance</item>
+    </string-array>
+    <string name="unit_miles">meilen</string>
+    <string name="feedback" >Feedback</string>
+    <string name="submit_button">" Senden"</string>
+    <string name="start">Starten</string>
+    <string name="walked_tag">erledigt</string>
+    <!-- Filtering options fields + identifier for mapping -->
+    <string-array name="filter_options">
+        <item>Park</item>
+        <item>Sehenswürdigkeiten</item>
+        <item>Kaffee</item>
+        <item>Hunde-Runde</item>
+        <item>Beisl-Tour</item>
+        <item>Romantischer Spaziergang</item>
+        <item>Sport Freaks</item>
+    </string-array>
+    <string name="duration">Dauer:</string>
+    <string name="distance">Distanz:</string>
+    <string name="show_detail">Show detail</string>
+    <string name="interests">Interessen</string>
+    <string name="send_feedback">Sende uns dein Feedback</string>
+    <string name="no_routes">Keine Route scheint ensprint deinen Filterkriterien</string>
 </resources>

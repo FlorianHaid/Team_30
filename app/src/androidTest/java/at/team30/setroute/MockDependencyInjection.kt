@@ -1,9 +1,8 @@
 package at.team30.setroute
 
-import at.team30.setroute.infrastructure.DependencyInjection
-import at.team30.setroute.infrastructure.IImageRepository
-import at.team30.setroute.infrastructure.IRoutesRepository
-import at.team30.setroute.infrastructure.ImageRepository
+import at.team30.setroute.Helper.EmailHelper
+import at.team30.setroute.Helper.IEmailHelper
+import at.team30.setroute.infrastructure.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
@@ -34,5 +33,30 @@ class MockDependencyInjection {
     @Provides
     fun provideImageRepository(): IImageRepository {
         return ImageRepository(provideFakeRoutesRepository())
+    }
+
+    @Singleton
+    @Provides
+    fun provideSettingRepository(): ISettingRepository {
+        return SettingRepository()
+    }
+
+    @Singleton
+    @Provides
+    fun provideEmailHelper(): IEmailHelper {
+        return EmailHelper(
+            smtpPort = 666,
+            smtpHost = "localhost",
+            userName = null,
+            authenticate = false,
+            password = null,
+            sender = "testSender666@test.it"
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideFilteringRepository(): IFilterRepository {
+        return FilteringRepository()
     }
 }
