@@ -1,59 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.settings.SettingsFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?backgroundColor"
-    tools:context=".ui.settings.SettingsFragment">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:windowSoftInputMode="adjustResize">
         <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp">
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:text="@string/select_a_language"/>
 
-            <TextView
-                    android:id="@+id/text_language"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    style="@style/Description"
-                    android:text="@string/select_a_language"/>
-
-            <Button
-                    android:id="@+id/language_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="10dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:spinnerMode="dialog"
-                    style="@style/Description"
-                    android:text=""/>
-
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/language_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:spinnerMode="dialog"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:text=""
+                tools:ignore="RelativeOverlap" />
         </RelativeLayout>
 
-        <Switch
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_units"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:paddingHorizontal="20dp"
-            style="@style/Description"
+            android:textAppearance="?attr/textAppearanceBody1"
             android:text="@string/switch_to_miles" />
 
-        <Switch
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_dark_mode"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:paddingHorizontal="20dp"
-            style="@style/Description"
+            android:textAppearance="?attr/textAppearanceBody1"
             android:text="@string/switch_to_dark_mode" />
 
-    </LinearLayout>
+    <View android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/dividerVertical" />
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:text="@string/send_feedback"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/feedback_text_container"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="500"
+            app:helperTextEnabled="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_feedback">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/feedback_text_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:lines="5"
+                android:gravity="top|left"
+                android:textColor="?attr/feedbackTextColor"
+                tools:ignore="RtlHardcoded" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/submit_feedback_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/submit_button"
+            android:textAllCaps="false"
+            android:enabled="false"
+            app:layout_constraintTop_toBottomOf="@id/feedback_text_container"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
+

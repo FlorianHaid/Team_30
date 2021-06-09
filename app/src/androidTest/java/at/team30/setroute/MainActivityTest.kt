@@ -1,22 +1,30 @@
 package at.team30.setroute
 
-import androidx.test.espresso.Espresso.onView
+import android.Manifest
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.test.espresso.Espresso.*
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.pressBack
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
+import androidx.test.rule.GrantPermissionRule
 import at.team30.setroute.infrastructure.DependencyInjection
 import at.team30.setroute.infrastructure.IRoutesRepository
 import at.team30.setroute.ui.MainActivity
+import at.team30.setroute.ui.settings.SettingsFragment
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import org.hamcrest.Matchers
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
+
 
 @UninstallModules(DependencyInjection::class)
 @HiltAndroidTest
@@ -28,12 +36,21 @@ class MainActivityTest {
     @get:Rule(order = 1)
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
+    @get:Rule(order = 2)
+    val runtimePermissionRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION)
+
     @Inject
     lateinit var routesRepository: IRoutesRepository
 
     @Before
     fun init() {
         hiltRule.inject()
+
+        val context = InstrumentationRegistry.getInstrumentation().targetContext;
+        val prefs: SharedPreferences = context.getSharedPreferences(SettingsFragment.SHARED_PREF_KEY, Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        editor.clear()
+        editor.commit()
     }
 
     @Test
@@ -111,5 +128,60 @@ class MainActivityTest {
         onView(withText(context.resources.getString(R.string.select_a_language))).check(matches((isDisplayed())))
         onView(withText(context.resources.getString(R.string.switch_to_miles))).check(matches((isDisplayed())))
         onView(withText(context.resources.getString(R.string.switch_to_dark_mode))).check(matches((isDisplayed())))
+    }
+
+    @Test
+    fun option_menu_opens() {
+        //Arrange
+        val context = InstrumentationRegistry.getInstrumentation().targetContext;
+
+        //Act
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
+
+        //Assert
+        onView(withText(context.resources.getString(R.string.sort))).check(matches((isDisplayed())))
+        onView(withText(context.resources.getString(R.string.filter))).check(matches((isDisplayed())))
+    }
+
+    @Test
+    fun sort_dialog_is_shown() {
+        //Arrange
+        val context = InstrumentationRegistry.getInstrumentation().targetContext;
+
+        //Act
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
+        onView(withText(context.resources.getString(R.string.sort))).perform(click())
+
+        //Assert
+        onView(withText(context.resources.getString(R.string.sort_order))).check(matches((isDisplayed())))
+    }
+
+    @Test
+    fun filter_dialog_is_shown() {
+        //Arrange
+        val context = InstrumentationRegistry.getInstrumentation().targetContext;
+
+        //Act
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
+        onView(withText(context.resources.getString(R.string.filter))).perform(click())
+
+        //Assert
+        onView(withText(context.resources.getString(R.string.filter_options))).check(matches((isDisplayed())))
+    }
+
+    @Test
+    fun switch_to_miles_works() {
+        //Arrange
+        val context = InstrumentationRegistry.getInstrumentation().targetContext;
+
+        //Act
+        onView(withId(R.id.settingsFragment)).perform(click())
+        onView(withId(R.id.switch_units)).perform(click())
+        onView(withId(R.id.routesFragment)).perform(click())
+
+        //Assert
+        onData(Matchers.anything()).inAdapterView(withId(R.id.list)).atPosition(0)
+                .onChildView(withId(R.id.length))
+                .check(matches(withSubstring(context.resources.getString(R.string.unit_miles))))
     }
 }

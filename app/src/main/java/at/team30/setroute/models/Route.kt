@@ -20,6 +20,10 @@ data class Route(
         PARK_LOVERS(1),
         SIGHTSEEING_ADDICTED(2),
         COFFEE_LOVERS(3),
+        DOG_WALK(4),
+        ALCOHOLICS(5),
+        ROMANTIC_WALK(6),
+        SPORT_FREAKS(7)
     }
 
     fun getLocalizedName(code: String): String {
@@ -36,5 +40,12 @@ data class Route(
             Language.GERMAN -> this.description_de
             Language.RUSSIAN -> this.description_ru
         }
+    }
+
+    fun getLength(miles_enabled: Boolean): Double {
+        if(miles_enabled){
+            return length / 1.609
+        }
+        return length
     }
 }
